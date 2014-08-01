@@ -6,14 +6,12 @@ var radius = 10;
 
 var svg = d3.select("body").append("svg")
     .attr("width", width)
-    .attr("height", height)
-    .style("fill", "red");
+    .attr("height", height);
 
-var data = [1,1,1,1,1];
-var nodes = d3.range(200);
+var nodes = d3.range(50);
 
-// var enemies = svg.selectAll('enemies')
-  // .data(data);
+var circle = svg.selectAll('circle')
+  .data(nodes);
 
 
   // enemies.enter().append('text')
@@ -21,14 +19,20 @@ var nodes = d3.range(200);
   //   .text('asd')
   //   .attr("x", 100);
 
-svg.selectAll('enemies').data(nodes)
-    .enter().append("circle")
-    .attr("r", radius)
-    .attr("cx", function(d,i){ return (Math.random()*width)+(radius*.5);})
-    .attr("cy", function(d,i) { return (Math.random()*height)+(radius*.5);})
-    ;
-  
-console.log(nodes);
+circle.enter().append("circle")
+  .attr("r", radius)
+  .attr("cx", function(d,i){ return (Math.random()*(width)-(radius));})
+  .attr("cy", function(d,i) { return (Math.random()*(height)-(radius));})
+  .attr('class', 'enemies')
+  ;
+ 
+ 
+setInterval(function() {
+circle.transition().duration(900)
+  .attr("cx", function(d,i){ return (Math.random()*width)-(radius);})
+  .attr("cy", function(d,i) { return (Math.random()*height)-(radius);});
+  }, 1500);
+
 
 // d3.select("body").selectAll("p")
 //     .data([4, 8, 15, 16, 23, 42])

@@ -8,7 +8,5 @@ Feel free to use it if you like. */
 }
 
 .enemies{
-  background-color: red;
-  width: 10px;
-  border: 2px;
+  fill: red;
 }
