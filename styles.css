@@ -3,3 +3,12 @@
 /* Note: an asteroid image is included in this repo. 
 Feel free to use it if you like. */
 
+.board {
+  color: green;
+}
+
+.enemies{
+  background-color: red;
+  width: 10px;
+  border: 2px;
+}
