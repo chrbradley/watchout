@@ -9,44 +9,50 @@ var svg = d3.select("body").append("svg")
     .attr("height", height);
 
 var nodes = d3.range(50);
+var heroObject = {x: width / 2, y: height / 2};
 
-var circle = svg.selectAll('circle')
-  .data(nodes);
+var enemies = svg.selectAll('.enemies')
+  .data(nodes)
+  ;
+
+var dragmove = function(d) {
+  console.log('ln 19: this is d');
+  console.log(d)
+    d3.select(this)
+      .attr("cx", d.x = Math.max(radius, Math.min(width - radius, d3.event.x)))
+      .attr("cy", d.y = Math.max(radius, Math.min(height - radius, d3.event.y)))
+      ;
+}
+
+var drag = d3.behavior.drag()
+  .origin(function(d) { return d; })
+  .on("drag", dragmove)
+  ;
 
 
-  // enemies.enter().append('text')
-  //   .attr('class', 'enemies')
-  //   .text('asd')
-  //   .attr("x", 100);
+var hero = svg.selectAll('.hero')
+    .data([heroObject])
+    ;
 
-circle.enter().append("circle")
+enemies.enter().append("circle")
   .attr("r", radius)
   .attr("cx", function(d,i){ return (Math.random()*(width)-(radius));})
   .attr("cy", function(d,i) { return (Math.random()*(height)-(radius));})
   .attr('class', 'enemies')
   ;
  
+hero.enter().append("circle")
+  .attr("r", radius)
+  .attr("cx", function(d){ return d.x; })
+  .attr("cy", function(d){ return d.y; })
+  .attr('class', 'hero')
+  .call(drag);
+  ;
  
+ console.log(hero);
+
 setInterval(function() {
-circle.transition().duration(900)
+enemies.transition().duration(900)
   .attr("cx", function(d,i){ return (Math.random()*width)-(radius);})
   .attr("cy", function(d,i) { return (Math.random()*height)-(radius);});
   }, 1500);
-
-
-// d3.select("body").selectAll("p")
-//     .data([4, 8, 15, 16, 23, 42])
-//   .enter().append("p")
-//     .text(function(d) { return "I number " + d + "!"; });
-
-
-//  1//Make an SVG Container
-//  2var svgContainer = d3.select("body").append("svg")
-//  3                                    .attr("width", 200)
-//  4                                    .attr("height", 200);
-//  5
-//  6//Draw the Circle
-//  7var circle = svgContainer.append("circle")
-//  8                         .attr("cx", 30)
-//  9                         .attr("cy", 30)
-// 10                         .attr("r", 20)

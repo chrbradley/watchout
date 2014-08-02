@@ -10,3 +10,7 @@ Feel free to use it if you like. */
 .enemies{
   fill: red;
 }
+
+.hero{
+  fill: green;
+}
